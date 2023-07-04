@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   RegisteredDate: {
-    type: date,
+    type: Date,
     required: true,
   },
   password: {
