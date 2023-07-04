@@ -1,4 +1,4 @@
-require("./config/db");
+require("./configs/db");
 const express = require("express");
 const app = express();
 

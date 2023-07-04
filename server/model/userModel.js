@@ -19,8 +19,9 @@ const userSchema = new mongoose.Schema({
   jobTitle: {
     type: String,
   },
-  experience: {
-    type: Number,
+  RegisteredDate: {
+    type: date,
+    required: true,
   },
   password: {
     type: String,
