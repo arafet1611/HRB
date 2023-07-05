@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -13,27 +17,16 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  department: {
-    type: String,
-  },
-  jobTitle: {
-    type: String,
-  },
-  RegisteredDate: {
-    type: Date,
-    required: true,
-  },
+
   password: {
     type: String,
     required: true,
   },
-  phoneNumber: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ["admin", "employee"],
-    default: "employee",
+
+  isAdmin: {
+    type: Boolean,
+
+    default: false,
   },
 });
 
