@@ -15,6 +15,9 @@ const attendanceSchema = new mongoose.Schema({
     enum: ["Present", "Absent", "Late"],
     required: true,
   },
+  percentage: {
+    type: Number,
+  },
 });
 
 const Attendance = mongoose.model("Attendance", attendanceSchema);
