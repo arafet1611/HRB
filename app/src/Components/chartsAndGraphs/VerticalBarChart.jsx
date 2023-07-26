@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,9 +9,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
-import { Bar } from "react-chartjs-2";
-// import CompanyData from "../../../Data/data.json";
 
 ChartJS.register(
   CategoryScale,
@@ -23,45 +20,62 @@ ChartJS.register(
 );
 
 const VerticalBarChart = ({ CompanyData }) => {
-  const filteredData = new Set();
-  const BarData = {};
-
-  CompanyData.forEach((e) => {
-    filteredData.add(e.relevance);
+  // Sort CompanyData by date before processing
+  const sortedData = CompanyData.slice().sort((a, b) => {
+    const dateA = new Date(a._id);
+    const dateB = new Date(b._id);
+    return dateA - dateB;
   });
-
-  CompanyData.forEach((i) => {
-    if (i.address === "") {
-      BarData["Others"] = (BarData["Others"] || 0) + 1;
-    } else {
-      BarData[i.address] = (BarData[i.address] || 0) + 1;
-    }
-  });
-  // console.log(filteredData);
-  // console.log(BarData);
-
-  // for(const [label,value] of Object.entries(BarData)){
-  //     mainData.datasets.data.push(value);
-  // }
 
   const mainData = {
     labels: [],
     datasets: [
       {
-        label: "Employee Address",
+        label: "Percentage of Present Employees",
         data: [],
-        backgroundColor: ["#A0E4CB", "#C6EBC5", "#9ED5C5"],
+        backgroundColor: "#A0E4CB",
       },
     ],
   };
 
-  for (const p in BarData) {
-    mainData.labels.push(p);
-    mainData.datasets[0].data.push(BarData[p]);
-  }
+  sortedData.forEach((data) => {
+    const date = new Date(data._id);
 
-  // console.log(mainData);
-  return <Bar className={"bg-light"} data={mainData} />;
+    if (!isNaN(date.getTime())) {
+      const formattedDate = date.toISOString().substring(0, 10);
+      mainData.labels.push(formattedDate);
+      mainData.datasets[0].data.push(data.percentage.toFixed(2));
+    }
+  });
+
+  const options = {
+    indexAxis: "x",
+    plugins: {
+      title: {
+        display: false,
+        text: "Attendance Percentage By Day",
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => context.parsed.y + "%",
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: "Percentage",
+        },
+        ticks: {
+          callback: (value) => value * 100 + "%",
+        },
+      },
+    },
+  };
+
+  return <Bar data={mainData} options={options} />;
 };
 
 export default VerticalBarChart;

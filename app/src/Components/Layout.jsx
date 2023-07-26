@@ -1,11 +1,15 @@
 import React from "react";
-import Navbar from "./Navbar";
-
-const Layout = ({ children }) => {
+import Sidebar from "./Sidebar";
+import "../Styles/Layout.css";
+import Dashboard from "../Pages/Dashboard";
+import EmployeesList from "../Pages/EmployeesList";
+const Layout = () => {
   return (
     <>
-      {/* <Navbar /> */}
-      <main>{children}</main>
+      <div className="layout-container">
+        <Sidebar />
+        <EmployeesList />
+      </div>
     </>
   );
 };

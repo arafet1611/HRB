@@ -1,6 +1,7 @@
 
 .dashboard-main-container {
     overflow-x: hidden;
+    background-color: #cfcece;
     overflow-y: auto;
     height: 92vh;
 }
@@ -28,9 +29,7 @@
     background: #ffffff;
 }
 
-.top-card-analytics-box-dark {
-    background: #000000;
-}
+
 
 .top-card-analytics-box svg {
     height: 80px;
@@ -50,10 +49,7 @@
     color: #7a7a7a;
 }
 
-.top-card-box-txt-dark>strong,
-p {
-    color: #dadada;
-}
+
 
 /* setting mini graph color for 4 boxes */
 .top-card-analytics-box-1 svg path {
@@ -114,9 +110,7 @@ p {
     background: #ffffff;
 }
 
-.feature-box-dark {
-    background: #000000;
-}
+
 
 .feature-box span {
     color: #6a686a;
@@ -179,10 +173,7 @@ p {
     background: #ffffff;
 }
 
-.doughnut-chart-dark,
-.bar-chart-dark {
-    background: #ffffff;
-}
+
 
 .doughnut-chart svg {
     height: 400px !important;
@@ -199,16 +190,14 @@ p {
 
 .pest-data span {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 800;
 }
 
 .pest-data-light span {
     color: #131313;
 }
 
-.pest-data-dark span {
-    color: #b3b2b2;
-}
+
 
 .bar-chart {
     padding: 30px 20px;
