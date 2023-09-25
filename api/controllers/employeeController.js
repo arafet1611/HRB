@@ -25,7 +25,7 @@ const getEmployeeById = async (req, res) => {
 
 const deleteEmployee = async (req, res) => {
   try {
-    const employee = await Employee.findByIdAndDelete(req.params.id);
+    const employee = await Employee.findByIdAndDelete(req.params.employeeId);
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }

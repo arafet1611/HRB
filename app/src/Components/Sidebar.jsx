@@ -61,12 +61,6 @@ const SideBar = ({ themeColor }) => {
                 <MdOutlineTopic /> &nbsp; &nbsp;<span>About</span>
               </Link>
             </li>
-
-            <li className="nav-item">
-              <a className="nav-link" href="http://localhost:3000">
-                <MdOutlineSettings /> &nbsp; &nbsp;<span>Settings</span>
-              </a>
-            </li>
           </ul>
         </div>
       </div>

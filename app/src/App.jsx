@@ -3,15 +3,15 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Pages/Login";
-import Layout from "./Components/Layout";
-import About from "./Pages/About";
+import AppLayout from "./Components/Layout"; // Rename the import to avoid conflictsimport About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Register from "./Pages/Register";
 import EmployeesList from "./Pages/EmployeesList";
+import About from "./Pages/About";
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
+      <AppLayout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
@@ -20,7 +20,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-      </Layout>
+      </AppLayout>
     </BrowserRouter>
   );
 }

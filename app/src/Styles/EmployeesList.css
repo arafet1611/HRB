@@ -1,0 +1,36 @@
+.text-md-right {
+    margin-left: 900px ;
+    margin-top: -65px;
+} 
+.icon-container {
+    display: inline-block;
+    /* To contain the icon within a border */
+    border: 2px solid #000;
+    /* Add a border around the container */
+    padding: 10px;
+    /* Optional: Add padding to the container */
+}
+
+.bigger-icon {
+    font-size: 20px;
+    /* Adjust the font size to make the icon bigger */
+}
+.header-container {
+    background-color: #8bbef5;
+    padding: 20px 0;
+    margin-bottom: -200px;
+    margin-top: 50px;
+}
+
+.all-employees-heading {
+    font-size: 2em;
+    color: rgb(72, 0, 255);
+    font-weight: 700;
+    font: 1em ;
+}
+.table {
+    margin-top: 200px;
+}
+.header-container {
+    margin-top:200px ;
+}
