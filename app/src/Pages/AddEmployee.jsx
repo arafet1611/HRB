@@ -11,6 +11,8 @@ const AddEmployee = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [image, setImage] = useState("");
+  const storedUser = window.localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -28,7 +30,16 @@ const AddEmployee = () => {
     };
 
     axios
-      .post("/api/employee", newEmployee)
+      .post(
+        "/api/employee",
+        {
+          headers: {
+            "x-user-id": user._id,
+            "x-admin": user.isAdmin,
+          },
+        },
+        newEmployee
+      )
       .then((response) => {
         console.log("Employee added:", response.data);
         navigate("/employeesList");

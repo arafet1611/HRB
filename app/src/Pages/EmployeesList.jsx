@@ -34,7 +34,12 @@ const EmployeesList = () => {
 
   const handleDelete = (employeeId) => {
     axios
-      .delete(`/api/employee/${employeeId}`)
+      .delete(`/api/employee/${employeeId}`, {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      })
       .then(() => {
         setEmployees((prevEmployees) =>
           prevEmployees.filter((employee) => employee._id !== employeeId)

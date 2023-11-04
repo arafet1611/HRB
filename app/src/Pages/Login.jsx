@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../Styles/Login.css';
+import "../Styles/Login.css"; // Make sure to have a CSS file for your styles
 import axios from "axios";
 
 const Login = () => {
@@ -38,7 +38,6 @@ const Login = () => {
   };
 
   return (
-    <>
     <div className="container">
       <h2 className="heading">Login</h2>
       <form className="form" onSubmit={handleLogin}>
@@ -65,8 +64,7 @@ const Login = () => {
         </button>
       </form>
       {errorMessage && <p className="errorMessage">{errorMessage}</p>}
-      </div>
-      </>
+    </div>
   );
 };
 

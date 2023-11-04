@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const employeeController = require("../controllers/employeeController");
-
-router.get("/", employeeController.getEmployeeList);
-router.get("/:id", employeeController.getEmployeeById);
-router.delete("/:id", employeeController.deleteEmployee);
-router.post("/", employeeController.createEmployee);
-router.put("/:id", employeeController.updateEmployee);
+const isLoggedIn = require("../middleWares/AuthMiddleWare");
+const isAdmin = require("../middleWares/adminMiddleWare");
+router.get("/", isLoggedIn, isAdmin, employeeController.getEmployeeList);
+router.get("/:id", isLoggedIn, isAdmin, employeeController.getEmployeeById);
+router.delete("/:id", isLoggedIn, isAdmin, employeeController.deleteEmployee);
+router.post("/", isLoggedIn, isAdmin, employeeController.createEmployee);
+router.put("/:id", isLoggedIn, isAdmin, employeeController.updateEmployee);
 
 module.exports = router;

@@ -15,14 +15,26 @@ function Dashboard() {
   const [firstDate, setFirstDate] = useState(null);
   const [lastDate, setLastDate] = useState(null);
   const [attendanceData, setAttendanceData] = useState([]);
+  const storedUser = window.localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
   const getFirstAndLastDates = async () => {
     try {
-      const responseFirst = await axios.get("/api/s/attendance/first-date");
+      const responseFirst = await axios.get("/api/s/attendance/first-date", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       if (responseFirst.data.firstDate) {
         setFirstDate(responseFirst.data.firstDate);
       }
 
-      const responseLast = await axios.get("/api/s/attendance/last-date");
+      const responseLast = await axios.get("/api/s/attendance/last-date", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       if (responseLast.data.lastDate) {
         setLastDate(responseLast.data.lastDate);
       }
@@ -39,7 +51,12 @@ function Dashboard() {
   //  Function to fetch total of employees
   const getTotalEmployeesCount = async () => {
     try {
-      const response = await axios.get("/api/s/employees/count");
+      const response = await axios.get("/api/s/employees/count", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       setTotalEmployees(response.data.totalEmployees);
     } catch (error) {
       console.error("Error getting total employee count:", error);
@@ -52,7 +69,12 @@ function Dashboard() {
   //  Function to fetch total of days Present
   const getTotalDaysPresent = async () => {
     try {
-      const response = await axios.get("/api/s/attendance/days-present");
+      const response = await axios.get("/api/s/attendance/days-present", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       setTotalDaysPresent(response.data.totalDaysPresent);
     } catch (error) {
       console.error("Error getting total days present:", error);
@@ -64,7 +86,12 @@ function Dashboard() {
   // Function to fetch totalDaysAbsent
   const getTotalDaysAbsent = async () => {
     try {
-      const response = await axios.get("/api/s/attendance/days-absent");
+      const response = await axios.get("/api/s/attendance/days-absent", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       setTotalDaysAbsent(response.data.totalDaysAbsent);
     } catch (error) {
       console.error("Error getting total days absent:", error);
@@ -76,7 +103,12 @@ function Dashboard() {
   // Function to fetch attendancePercentage
   const getAttendancePercentage = async () => {
     try {
-      const response = await axios.get("/api/s/attendance/percentage");
+      const response = await axios.get("/api/s/attendance/percentage", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       setAttendancePercentage(response.data.attendancePercentage);
     } catch (error) {
       console.error("Error getting attendance percentage:", error);
@@ -98,7 +130,12 @@ function Dashboard() {
 
   const getAttendanceByDayData = async () => {
     try {
-      const response = await axios.get("/api/s/attendance/percentage-byday");
+      const response = await axios.get("/api/s/attendance/percentage-byday", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      });
       setAttendanceData(response.data.attendanceData);
     } catch (error) {
       console.error("Error getting attendance data:", error);
@@ -112,7 +149,13 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "/api/s/attendance/employee-percentage"
+          "/api/s/attendance/employee-percentage",
+          {
+            headers: {
+              "x-user-id": user._id,
+              "x-admin": user.isAdmin,
+            },
+          }
         );
         setCompanyData(response.data.employeeAttendances);
       } catch (error) {
@@ -124,76 +167,82 @@ function Dashboard() {
   }, []);
   return (
     <>
-      <div className="row dashboard-main-container">
-        <div className="col-md-12 p-3">
-          <div className="row">
-            <div className="col-md-12 top-grid-wrapper">
-              <SparkLinesCard
-                cardID="1"
-                headingData={totalEmployees}
-                innerTextData="Total employees"
-                themeColor="light"
-                mainSparkData={[5, 10, 6, 8, 9, 20]}
-                limit={5}
-              />
-              <SparkLinesCard
-                cardID="2"
-                headingData={totalDaysPresent}
-                innerTextData="total days present "
-                themeColor="light"
-                mainSparkData={[8, 4, 3, 7, 9, 10]}
-                limit={5}
-              />
-              <SparkLinesCard
-                cardID="3"
-                headingData={totalDaysAbsent}
-                innerTextData="total days absent"
-                themeColor="light"
-                mainSparkData={[3, 10, 6, 8, 9, 20]}
-                limit={5}
-              />
-              <SparkLinesCard
-                cardID="4"
-                headingData={
-                  firstDate && lastDate
-                    ? `${formatDate(firstDate)} - ${formatDate(lastDate)}`
-                    : "No dates available"
-                }
-                innerTextData="Date"
-                themeColor="light"
-                mainSparkData={[7, 10, 6, 8, 9, 20]}
-                limit={5}
-              />
-            </div>
-          </div>
-          <div className="row mt-4">
-            <div className={`col-md-5 pest-data pest-data-light`}>
-              <span>Overall attendance Percentage</span>
-              <div className={`doughnut-chart doughnut-chart-light mt-2 pl-2`}>
-                <Gauge className={"bg-white"} value={attendancePercentage} />
+      {!window.localStorage.getItem("user").isAdmin ? (
+        <div className="row dashboard-main-container">
+          <div className="col-md-12 p-3">
+            <div className="row">
+              <div className="col-md-12 top-grid-wrapper">
+                <SparkLinesCard
+                  cardID="1"
+                  headingData={totalEmployees}
+                  innerTextData="Total employees"
+                  themeColor="light"
+                  mainSparkData={[5, 10, 6, 8, 9, 20]}
+                  limit={5}
+                />
+                <SparkLinesCard
+                  cardID="2"
+                  headingData={totalDaysPresent}
+                  innerTextData="total days present "
+                  themeColor="light"
+                  mainSparkData={[8, 4, 3, 7, 9, 10]}
+                  limit={5}
+                />
+                <SparkLinesCard
+                  cardID="3"
+                  headingData={totalDaysAbsent}
+                  innerTextData="total days absent"
+                  themeColor="light"
+                  mainSparkData={[3, 10, 6, 8, 9, 20]}
+                  limit={5}
+                />
+                <SparkLinesCard
+                  cardID="4"
+                  headingData={
+                    firstDate && lastDate
+                      ? `${formatDate(firstDate)} - ${formatDate(lastDate)}`
+                      : "No dates available"
+                  }
+                  innerTextData="Date"
+                  themeColor="light"
+                  mainSparkData={[7, 10, 6, 8, 9, 20]}
+                  limit={5}
+                />
               </div>
             </div>
-            <div className="col-md-1"> </div>
-            <div className={`col-md-6  pest-data pest-data-light`}>
-              <span>Attendence percentage By Day </span>
-              <div className={`bar-chart bar-chart-light mt-2`}>
-                <VerticalBarChart CompanyData={attendanceData} />
-              </div>
-            </div>
-
             <div className="row mt-4">
-              <div className="col-md-3"> </div>
-              <div className={`col-md-6  pest-data pest-data-light`}>
-                <span>Attendence percentage By Employee </span>
-                <div className={`bar-chart bar-chart-light mt-2`}>
-                  <HorizontalBarChart CompanyData={companyData} />
+              <div className={`col-md-5 pest-data pest-data-light`}>
+                <span>Overall attendance Percentage</span>
+                <div
+                  className={`doughnut-chart doughnut-chart-light mt-2 pl-2`}
+                >
+                  <Gauge className={"bg-white"} value={attendancePercentage} />
                 </div>
               </div>
-              <div className="col-md-3"> </div>
+              <div className="col-md-1"> </div>
+              <div className={`col-md-6  pest-data pest-data-light`}>
+                <span>Attendence percentage By Day </span>
+                <div className={`bar-chart bar-chart-light mt-2`}>
+                  <VerticalBarChart CompanyData={attendanceData} />
+                </div>
+              </div>
+
+              <div className="row mt-4">
+                <div className="col-md-3"> </div>
+                <div className={`col-md-6  pest-data pest-data-light`}>
+                  <span>Attendence percentage By Employee </span>
+                  <div className={`bar-chart bar-chart-light mt-2`}>
+                    <HorizontalBarChart CompanyData={companyData} />
+                  </div>
+                </div>
+                <div className="col-md-3"> </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div> "You are not authorized as an admin!"</div>
+      )}
     </>
   );
 }

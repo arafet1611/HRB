@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../model/userModel");
 const authenticateUser = async (req, res, next) => {
   const userId = req.headers["x-user-id"];
 
