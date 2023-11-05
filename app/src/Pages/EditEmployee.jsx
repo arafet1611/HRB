@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
-const AddEmployee = () => {
+import { useNavigate, useParams } from "react-router-dom";
+function EditEmployee() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
@@ -14,7 +13,30 @@ const AddEmployee = () => {
   const storedUser = window.localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
   const navigate = useNavigate();
-
+  const { id } = useParams();
+  useEffect(() => {
+    axios
+      .get(`/api/employee/${id}`, {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      })
+      .then((response) => {
+        const employeeData = response.data;
+        setName(employeeData.name);
+        setEmail(employeeData.email);
+        setDepartment(employeeData.department);
+        setJobTitle(employeeData.jobTitle);
+        setExperience(employeeData.experience);
+        setPassword(employeeData.password);
+        setPhoneNumber(employeeData.phoneNumber);
+        setImage(employeeData.image);
+      })
+      .catch((error) => {
+        console.error("Error fetching employee data:", error);
+      });
+  }, [id]);
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -30,7 +52,7 @@ const AddEmployee = () => {
     };
 
     axios
-      .post("/api/employee", newEmployee, {
+      .put(`/api/employee/${id}`, newEmployee, {
         headers: {
           "x-user-id": user._id,
           "x-admin": user.isAdmin,
@@ -58,7 +80,7 @@ const AddEmployee = () => {
     <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8 ">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
         <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900">
-          Add Employee
+          Edit Employee
         </h2>
       </div>
       <div className="p-6 mt-10 rounded-md shadow-2xl bg-slate-100 sm:mx-auto sm:w-full sm:max-w-sm w-96">
@@ -210,12 +232,12 @@ const AddEmployee = () => {
             type="submit"
             className="flex w-full justify-center rounded-md bg-indigo-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-900"
           >
-            Add
+            Save Change
           </button>
         </form>
       </div>
     </div>
   );
-};
+}
 
-export default AddEmployee;
+export default EditEmployee;

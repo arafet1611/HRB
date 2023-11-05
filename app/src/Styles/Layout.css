@@ -1,21 +1,6 @@
 .layout-container {
     display: flex;
+    width: 100%;
 }
 
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-    /* Additional styles for the main content */
-    /* ... */
-}
-.navbar {
-    position: relative;
-    top: 0;
-    z-index: 100;
-}
-.btn {
-    min-width: 120px;
-    min-height: 50px;
-    margin : 15px;
-    /* You can adjust the width as per your requirement */
-}
+

@@ -26,6 +26,8 @@ const SideBar = ({ themeColor }) => {
     mobileSidebarNav.current.classList.toggle("dashboard-sidebar-nav-show");
   };
 
+  const user = JSON.parse(window.localStorage.getItem("user"));
+
   const handleLogout = () => {
     // Remove the user from local storage and redirect to the login page
     window.localStorage.removeItem("user");
@@ -47,64 +49,60 @@ const SideBar = ({ themeColor }) => {
             <AiOutlineMenu />
           </div>
         </div>
-        {!window.localStorage.getItem("user").isAdmin ? (
-          <div
-            className={`col-md-12 dashboard-sidebar-nav dashboard-sidebar-nav-${themeColor}`}
-            ref={mobileSidebarNav}
-          >
-            <ul className="navbar">
-              {!window.localStorage.getItem("user") ? (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      <MdDashboardCustomize /> &nbsp; &nbsp;<span>Login</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">
-                      <MdDashboardCustomize /> &nbsp; &nbsp;<span>SignUp</span>
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/">
-                      <MdDashboardCustomize /> &nbsp; &nbsp;
-                      <span>Dashboard</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/employees">
-                      <MdCalendarToday /> &nbsp; &nbsp;
-                      <span>Employee List</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      <MdOutlineTopic /> &nbsp; &nbsp;<span>About</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item" onClick={handleLogout}>
-                    <Link className="nav-link">
-                      <TbLogout2 /> &nbsp; &nbsp;<span>Logout</span>
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-        ) : (
-          <div>
-            {" "}
-            <Link className="nav-link" to="/" />
-            <li className="nav-item" onClick={handleLogout}>
-              <Link className="nav-link">
-                <TbLogout2 /> &nbsp; &nbsp;<span>Logout</span>
-              </Link>
-            </li>
-          </div>
-        )}
+        <div
+          className={`col-md-12 dashboard-sidebar-nav dashboard-sidebar-nav-${themeColor}`}
+          ref={mobileSidebarNav}
+        >
+          <ul className="navbar">
+            {!user ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    <MdDashboardCustomize /> &nbsp; &nbsp;<span>Login</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                    <MdDashboardCustomize /> &nbsp; &nbsp;<span>SignUp</span>
+                  </Link>
+                </li>
+              </>
+            ) : user.isAdmin ? (
+              <div>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">
+                    <MdDashboardCustomize /> &nbsp; &nbsp;
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/employees">
+                    <MdCalendarToday /> &nbsp; &nbsp;
+                    <span>Employee List</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/about">
+                    <MdOutlineTopic /> &nbsp; &nbsp;<span>About</span>
+                  </Link>
+                </li>
+                <li className="nav-item" onClick={handleLogout}>
+                  <Link className="nav-link">
+                    <TbLogout2 /> &nbsp; &nbsp;<span>Logout</span>
+                  </Link>
+                </li>
+              </div>
+            ) : (
+              <>
+                <li className="nav-item" onClick={handleLogout}>
+                  <Link className="nav-link">
+                    <TbLogout2 /> &nbsp; &nbsp;<span>Logout</span>
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );

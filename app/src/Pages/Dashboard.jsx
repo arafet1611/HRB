@@ -167,82 +167,76 @@ function Dashboard() {
   }, []);
   return (
     <>
-      {!window.localStorage.getItem("user").isAdmin ? (
-        <div className="row dashboard-main-container">
-          <div className="col-md-12 p-3">
-            <div className="row">
-              <div className="col-md-12 top-grid-wrapper">
-                <SparkLinesCard
-                  cardID="1"
-                  headingData={totalEmployees}
-                  innerTextData="Total employees"
-                  themeColor="light"
-                  mainSparkData={[5, 10, 6, 8, 9, 20]}
-                  limit={5}
-                />
-                <SparkLinesCard
-                  cardID="2"
-                  headingData={totalDaysPresent}
-                  innerTextData="total days present "
-                  themeColor="light"
-                  mainSparkData={[8, 4, 3, 7, 9, 10]}
-                  limit={5}
-                />
-                <SparkLinesCard
-                  cardID="3"
-                  headingData={totalDaysAbsent}
-                  innerTextData="total days absent"
-                  themeColor="light"
-                  mainSparkData={[3, 10, 6, 8, 9, 20]}
-                  limit={5}
-                />
-                <SparkLinesCard
-                  cardID="4"
-                  headingData={
-                    firstDate && lastDate
-                      ? `${formatDate(firstDate)} - ${formatDate(lastDate)}`
-                      : "No dates available"
-                  }
-                  innerTextData="Date"
-                  themeColor="light"
-                  mainSparkData={[7, 10, 6, 8, 9, 20]}
-                  limit={5}
-                />
+      <div className="row dashboard-main-container">
+        <div className="col-md-12 p-3">
+          <div className="row">
+            <div className="col-md-12 top-grid-wrapper">
+              <SparkLinesCard
+                cardID="1"
+                headingData={totalEmployees}
+                innerTextData="Total employees"
+                themeColor="light"
+                mainSparkData={[5, 10, 6, 8, 9, 20]}
+                limit={5}
+              />
+              <SparkLinesCard
+                cardID="2"
+                headingData={totalDaysPresent}
+                innerTextData="total days present "
+                themeColor="light"
+                mainSparkData={[8, 4, 3, 7, 9, 10]}
+                limit={5}
+              />
+              <SparkLinesCard
+                cardID="3"
+                headingData={totalDaysAbsent}
+                innerTextData="total days absent"
+                themeColor="light"
+                mainSparkData={[3, 10, 6, 8, 9, 20]}
+                limit={5}
+              />
+              <SparkLinesCard
+                cardID="4"
+                headingData={
+                  firstDate && lastDate
+                    ? `${formatDate(firstDate)} - ${formatDate(lastDate)}`
+                    : "No dates available"
+                }
+                innerTextData="Date"
+                themeColor="light"
+                mainSparkData={[7, 10, 6, 8, 9, 20]}
+                limit={5}
+              />
+            </div>
+          </div>
+          <div className="row mt-4">
+            <div className={`col-md-5 pest-data pest-data-light`}>
+              <span>Overall attendance Percentage</span>
+              <div className={`doughnut-chart doughnut-chart-light mt-2 pl-2`}>
+                <Gauge className={"bg-white"} value={attendancePercentage} />
               </div>
             </div>
-            <div className="row mt-4">
-              <div className={`col-md-5 pest-data pest-data-light`}>
-                <span>Overall attendance Percentage</span>
-                <div
-                  className={`doughnut-chart doughnut-chart-light mt-2 pl-2`}
-                >
-                  <Gauge className={"bg-white"} value={attendancePercentage} />
-                </div>
+            <div className="col-md-1"> </div>
+            <div className={`col-md-6  pest-data pest-data-light`}>
+              <span>Attendence percentage By Day </span>
+              <div className={`bar-chart bar-chart-light mt-2`}>
+                <VerticalBarChart CompanyData={attendanceData} />
               </div>
-              <div className="col-md-1"> </div>
-              <div className={`col-md-6  pest-data pest-data-light`}>
-                <span>Attendence percentage By Day </span>
-                <div className={`bar-chart bar-chart-light mt-2`}>
-                  <VerticalBarChart CompanyData={attendanceData} />
-                </div>
-              </div>
+            </div>
 
-              <div className="row mt-4">
-                <div className="col-md-3"> </div>
-                <div className={`col-md-6  pest-data pest-data-light`}>
-                  <span>Attendence percentage By Employee </span>
-                  <div className={`bar-chart bar-chart-light mt-2`}>
-                    <HorizontalBarChart CompanyData={companyData} />
-                  </div>
+            <div className="row mt-4">
+              <div className="col-md-3"> </div>
+              <div className={`col-md-6  pest-data pest-data-light`}>
+                <span>Attendence percentage By Employee </span>
+                <div className={`bar-chart bar-chart-light mt-2`}>
+                  <HorizontalBarChart CompanyData={companyData} />
                 </div>
-                <div className="col-md-3"> </div>
               </div>
+              <div className="col-md-3"> </div>
             </div>
           </div>
         </div>
-      ) : (
-        <div> "You are not authorized as an admin!"</div>
-      )}
+      </div>
     </>
   );
 }

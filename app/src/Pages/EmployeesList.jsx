@@ -16,10 +16,19 @@ const EmployeesList = () => {
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
+  const [showDeleteToast, setShowDeleteToast] = useState(false);
+  const [deletedEmployeeName, setDeletedEmployeeName] = useState("");
+  const storedUser = window.localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
 
   useEffect(() => {
     axios
-      .get("/api/employee")
+      .get("/api/employee", {
+        headers: {
+          "x-user-id": user._id,
+          "x-admin": user.isAdmin,
+        },
+      })
       .then((response) => {
         setEmployees(response.data);
       })
@@ -33,10 +42,10 @@ const EmployeesList = () => {
   };
 
   const handleDelete = (employeeId) => {
+    console.log("Deleting employee " + employeeId);
     axios
       .delete(`/api/employee/${employeeId}`, {
         headers: {
-          "x-user-id": user._id,
           "x-admin": user.isAdmin,
         },
       })
@@ -44,6 +53,14 @@ const EmployeesList = () => {
         setEmployees((prevEmployees) =>
           prevEmployees.filter((employee) => employee._id !== employeeId)
         );
+
+        const deletedEmployee = employees.find(
+          (employee) => employee._id === employeeId
+        );
+
+        setDeletedEmployeeName(deletedEmployee.name);
+
+        setShowDeleteToast(true);
       })
       .catch((error) => {
         console.error("Error deleting employee:", error);
@@ -65,10 +82,9 @@ const EmployeesList = () => {
       const day = String(date.getDate()).padStart(2, "0");
       return `${year}-${month}-${day}`;
     }
-    return dateString; // Return the original string if it's not a valid date
+    return dateString;
   };
 
-  // State to control the confirmation modal for attendance submission
   const [
     showSubmitAttendanceConfirmation,
     setShowSubmitAttendanceConfirmation,
@@ -77,20 +93,16 @@ const EmployeesList = () => {
     useState("");
 
   const handleAttendanceConfirmation = (employeeId) => {
-    // Show the confirmation modal
     setEmployeeIdToSubmitAttendance(employeeId);
     setShowSubmitAttendanceConfirmation(true);
   };
 
   const confirmSubmitAttendance = () => {
-    // Close the modal
     setShowSubmitAttendanceConfirmation(false);
 
-    // Handle attendance submission
     const status = attendanceStatus[employeeIdToSubmitAttendance];
     const date = selectedDate;
 
-    // Send the data to the backend here, e.g., using axios.post
     console.log(
       "employee: " +
         employeeIdToSubmitAttendance +
@@ -100,13 +112,21 @@ const EmployeesList = () => {
         date
     );
     axios
-      .post("/api/att", {
-        employee_id: employeeIdToSubmitAttendance,
-        status: status,
-        date: date,
-      })
+      .post(
+        "/api/att",
+        {
+          headers: {
+            "x-user-id": user._id,
+            "x-admin": user.isAdmin,
+          },
+        },
+        {
+          employee_id: employeeIdToSubmitAttendance,
+          status: status,
+          date: date,
+        }
+      )
       .then((response) => {
-        // Handle the response if needed
         console.log("Attendance submitted:", response.data);
       })
       .catch((error) => {
@@ -123,7 +143,6 @@ const EmployeesList = () => {
 
   return (
     <>
-      {/* Blue Bar with Shapes and "All Employees" Heading */}
       <div className="header-container text-center">
         <h1 className="all-employees-heading">All Employees</h1>
       </div>
@@ -142,13 +161,12 @@ const EmployeesList = () => {
             </div>
           </div>
           <div className="col-md-6 text-md-right">
-            {/* <Link to="/addEmployee" className="btn btn-success">
+            <Link to="/addemployee" className="btn btn-success">
               Add Employee
-            </Link> */}
+            </Link>
           </div>
         </div>
 
-        {/* Employee Table */}
         <table className="table">
           <thead className="thead-light">
             <tr>
@@ -226,7 +244,6 @@ const EmployeesList = () => {
         </table>
       </div>
 
-      {/* Confirmation Modal for Attendance Submission */}
       <Modal
         show={showSubmitAttendanceConfirmation}
         onHide={() => setShowSubmitAttendanceConfirmation(false)}
