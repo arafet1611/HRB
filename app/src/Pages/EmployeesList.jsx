@@ -143,10 +143,10 @@ const EmployeesList = () => {
 
   return (
     <>
-      <div className="header-container text-center">
-        <h1 className="all-employees-heading">All Employees</h1>
-      </div>
       <div className="container">
+        <div className="header-container text-center">
+          <h1 className="all-employees-heading">All Employees</h1>
+        </div>
         <div className="row mb-4">
           <div className="col-md-6">
             <div className="form-group">

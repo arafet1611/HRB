@@ -4,6 +4,7 @@ const userRoute = require("./routes/userRoute");
 const employeeRoute = require("./routes/employeeRoute");
 const statisticsRoute = require("./routes/statisticRoute");
 const attendanceRoute = require("./routes/attendanceRoute");
+const attendanceHistoryRoute = require("./routes/attendanceHistoryRoute");
 const app = express();
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -17,3 +18,4 @@ app.use("/api/users", userRoute);
 app.use("/api/employee", employeeRoute);
 app.use("/api/s", statisticsRoute);
 app.use("/api/att", attendanceRoute);
+app.use("/api/att/history", attendanceHistoryRoute);

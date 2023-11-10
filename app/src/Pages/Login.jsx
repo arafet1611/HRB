@@ -26,8 +26,8 @@ const Login = () => {
       });
       if (data.user) {
         window.localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/");
         console.log("Login successful:", data.user);
+        window.location.replace("/");
       } else {
         throw new Error("Authentication failed");
       }

@@ -10,6 +10,9 @@ import Register from "./Pages/Register";
 import EmployeesList from "./Pages/EmployeesList";
 import AddEmployee from "./Pages/AddEmployee";
 import EditEmployee from "./Pages/EditEmployee";
+import History from "./Pages/History";
+import Demande from "./Pages/demande";
+import InfoUser from "./Components/InfoUser";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
           <Route path="/editEmployee/:id" element={<EditEmployee />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/demande" element={<Demande />} />
+          <Route path="/infoUser" element={<InfoUser />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>
