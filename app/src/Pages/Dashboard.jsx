@@ -6,7 +6,7 @@ import SparkLinesCard from "../Components/SparkLinesCard";
 import "../Styles/Dashboard.css";
 import VerticalBarChart from "../Components/chartsAndGraphs/VerticalBarChart";
 import HorizontalBarChart from "../Components/chartsAndGraphs/HorizontalBarChart";
-
+import UserDashboard from "../Components/UserDashboard";
 function Dashboard() {
   const storedUser = window.localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -168,7 +168,7 @@ function Dashboard() {
           </div>
         </div>
       ) : (
-        <div> "You are not authorized as an admin!"</div>
+        <UserDashboard />
       )}
     </>
   );

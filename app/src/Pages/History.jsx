@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../Styles/history.css";
+import HistorySelectImage from "../assets/HistorySelect.avif";
 export default function History() {
   const storedUser = window.localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -45,7 +46,11 @@ export default function History() {
     <div className="container">
       <h1>History attendance Employee</h1>
       <span>Select employee: </span>
-      <select onChange={handleEmployeeChange} value={selectedEmployee}>
+      <select
+        className="form-select"
+        onChange={handleEmployeeChange}
+        value={selectedEmployee}
+      >
         <option value="">Select an employee</option>
         {employees.map((employee) => (
           <option key={employee._id} value={employee._id}>
@@ -55,7 +60,7 @@ export default function History() {
       </select>
 
       {attendance.length > 0 ? (
-        <table className="bordered-table">
+        <table className="table table-bordered mt-3">
           <thead>
             <tr>
               <th>#</th>
@@ -74,7 +79,14 @@ export default function History() {
           </tbody>
         </table>
       ) : (
-        <p>employee is not selected yet</p>
+        <div className="mt-3">
+          <p>Employee is not selected yet</p>
+          <img
+            src={HistorySelectImage}
+            alt="Select Employee"
+            className="img-fluid"
+          />
+        </div>
       )}
     </div>
   );

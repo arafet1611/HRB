@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
       <Navbar />
 
       <div className="layout-container">
-        {isAdmin && <Sidebar />}
+        <Sidebar />
         <main className="layout-container">{children}</main>
       </div>
     </>

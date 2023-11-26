@@ -4,27 +4,27 @@
 } 
 .icon-container {
     display: inline-block;
-    /* To contain the icon within a border */
     border: 2px solid #000;
-    /* Add a border around the container */
     padding: 10px;
-    /* Optional: Add padding to the container */
 }
-
+.form-group {
+    width: 30vh;
+    margin-left: 20vh;
+}
 .bigger-icon {
     font-size: 20px;
-    /* Adjust the font size to make the icon bigger */
 }
 .header-container {
-    background-color: #8bbef5;
+    background-color: #009578;
     padding: 20px 0;
+    width: 100vh;
     margin-bottom: -200px;
     margin-top: 50px;
 }
 
 .all-employees-heading {
     font-size: 2em;
-    color: rgb(72, 0, 255);
+    color: rgb(249, 249, 250);
     font-weight: 700;
     font: 1em ;
 }

@@ -20,7 +20,7 @@ const EmployeesList = () => {
   const [deletedEmployeeName, setDeletedEmployeeName] = useState("");
   const storedUser = window.localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
-
+  let i = 1;
   useEffect(() => {
     axios
       .get("/api/employee", {
@@ -170,7 +170,7 @@ const EmployeesList = () => {
         <table className="table">
           <thead className="thead-light">
             <tr>
-              <th scope="col">Image</th>
+              <th scope="col">N#</th>
               <th>Name</th>
               <th scope="col">Email</th>
               <th scope="col">Department</th>
@@ -184,13 +184,7 @@ const EmployeesList = () => {
           <tbody>
             {filteredEmployees.map((employee) => (
               <tr key={employee._id} className="bg-white border-bottom">
-                <td>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={"./src/assets/Mon Photo.jpeg"}
-                    alt="Jese image"
-                  />
-                </td>
+                <td>{i++}</td>
                 <td className="flex items-center">{employee.name}</td>
                 <td>
                   <div className="pl-3">

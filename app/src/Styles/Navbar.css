@@ -15,18 +15,22 @@
     flex: 3
 }
 
-.siteLink2 {
-    margin-left: -5px;
-    border: none;
-    padding: 24px;
+.whiteLink-siteLink{
+   margin-right: 10px;
+    
+    background-color: blue;
+  
+    padding: 5px 10px;
+ 
+    border-radius: 5px;
+   
+    color: white;
+    
+    text-decoration: none;
+  
     display: inline-block;
-    min-width: 115px;
-    min-height: 50px;
-    font-weight: bold;
-}
-
-.whiteLink {
-    background: #fff;
+   
+ 
 }
 
 .whiteLink:active {
