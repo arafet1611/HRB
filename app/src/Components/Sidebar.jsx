@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom"; // Add Redirect import
-import { TbLogout2 } from "react-icons/tb";
+import { Link, Navigate } from "react-router-dom"; 
 import {
   MdDashboardCustomize,
   MdCalendarToday,
@@ -8,7 +7,6 @@ import {
   MdHistory,
   MdDateRange 
 } from "react-icons/md";
-import { AiOutlineMenu } from "react-icons/ai";
 import "../Styles/Sidebar.css";
 const storedUser = window.localStorage.getItem("user");
 const user = storedUser ? JSON.parse(storedUser) : null;
@@ -61,14 +59,7 @@ const SideBar = () => {
             </div>
           ) : (
             <div className="row">
-              <div className="col-md-12 py-3 mobile-sidebar-nav">
-                <div
-                  className="ham-btn"
-                  onClick={() => setSidebarVisible(!sidebarVisible)}
-                >
-                  <AiOutlineMenu />
-                </div>
-              </div>
+           
               <div
                 className={`col-md-12 dashboard-sidebar-nav dashboard-sidebar-nav-white`}
               >

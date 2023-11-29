@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../Styles/history.css";
-import HistorySelectImage from "../assets/HistorySelect.avif";
+import HistorySelectImage from "../assets/Select-amico.png";
 export default function History() {
   const storedUser = window.localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -85,6 +85,8 @@ export default function History() {
             src={HistorySelectImage}
             alt="Select Employee"
             className="img-fluid"
+            width={500}
+            height={500}
           />
         </div>
       )}

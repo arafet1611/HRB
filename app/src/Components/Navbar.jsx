@@ -26,7 +26,7 @@ const Navbar = () => {
           <div className="flex2 text-end d-none d-md-block">
             {user ? (
               <div>
-                <span className="whiteLink siteLink">
+                <span className="whiteLink-siteLink">
                   Welcome, {`${user.firstName} ${user.lastName} `}
                 </span>
                 {!user.isAdmin ? (
@@ -40,10 +40,8 @@ const Navbar = () => {
               </div>
             ) : (
               <div>
-                <Link to="/register" className="whiteLink siteLink">
-                  Register
-                </Link>
-                <Link to="/login" className="whiteLink siteLink">
+              
+                <Link to="/login" className="whiteLink-siteLink">
                   Login
                 </Link>
               </div>

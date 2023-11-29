@@ -3,9 +3,10 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-toastify/dist/ReactToastify.css';
-
+import Navbar from "./Components/Navbar";
+import Sidebar from "./Components/Sidebar";
 import Login from "./Pages/Login";
-import AppLayout from "./Components/Layout";
+//import AppLayout from "./Components/Layout";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Register from "./Pages/Register";
@@ -33,8 +34,14 @@ function App() {
   }, [user]);
   return (
     <BrowserRouter>
-      <AppLayout>
+      <div className="app">
+        <Navbar />
+        <div className="layout-container">
+        <Sidebar />
+        </div>
+
         <Routes>
+        
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
@@ -56,7 +63,8 @@ function App() {
             <Route />
 
           </Routes>
-      </AppLayout>
+          </div>
+         
     </BrowserRouter>
   );
 }

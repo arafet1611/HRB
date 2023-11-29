@@ -32,12 +32,13 @@ const Login = () => {
         throw new Error("Authentication failed");
       }
     } catch (error) {
-      console.error("Error logging in:", error);
+      
       setErrorMessage("Authentication failed");
     }
   };
 
   return (
+    <div className="body">
     <div className="container">
       <h2 className="heading">Login</h2>
       <form className="form" onSubmit={handleLogin}>
@@ -64,6 +65,7 @@ const Login = () => {
         </button>
       </form>
       {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+    </div>
     </div>
   );
 };

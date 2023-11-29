@@ -55,27 +55,34 @@ const DemandeList = () => {
   const totalPages = Math.ceil(filteredAndPaginatedDemandes.length / perPage);
 
   return (
-    <div style={{ paddingLeft: "200px" }}>
-      {/* ... (unchanged) */}
-      <table
-        style={{
-          width: "900px",
-          borderCollapse: "collapse",
-          margin: "20px 0",
-          backgroundColor: "lightblue",
-        }}
-      >
+    <div className="container">
+      <div className=" text-center" style={{
+  backgroundColor: "#009578",
+  padding: "20px 0",
+  width: "100vh",  // Change from 100vh to 100%
+}}>
+          <h1 className="all-employees-heading">All Demandes</h1>
+        </div>
+      <table className="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+          </tr>
+        </thead>
         <tbody>
           {filteredAndPaginatedDemandes.map((demande) => (
-            <tr key={demande._id} style={{ border: "1px solid " }}>
-              <td style={{ padding: "10px" }}>{formatDate(demande.debut)}</td>
-              <td style={{ padding: "10px" }}>{formatDate(demande.fin)}</td>
-              <td style={{ padding: "10px" }}>{demande.reason}</td>
-              <td style={{ padding: "10px" }}>
+            <tr key={demande._id}>
+              <td>{formatDate(demande.debut)}</td>
+              <td>{formatDate(demande.fin)}</td>
+              <td>{demande.reason}</td>
+              <td>
                 <select
+                  className="form-select"
                   value={demande.Status}
                   onChange={(e) => changeDemandeStatus(demande._id, e.target.value)}
-                  style={{ marginLeft: "10px", padding: "5px" }}
                 >
                   <option value="Pending">Pending</option>
                   <option value="Accepted">Accepted</option>
@@ -86,18 +93,18 @@ const DemandeList = () => {
           ))}
         </tbody>
       </table>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="d-flex justify-content-center">
         <button
-          onClick={() =>
-            setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
-          }
+          className="btn btn-primary me-2"
+          onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
         >
           Previous
         </button>
-        <span style={{ margin: "0 10px" }}>
+        <span className="align-self-center">
           Page {currentPage} of {totalPages}
         </span>
         <button
+          className="btn btn-primary ms-2"
           onClick={() =>
             setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))
           }

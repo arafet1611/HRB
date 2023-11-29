@@ -55,7 +55,7 @@ const HistoriqueDemande = () => {
   const totalPages = Math.ceil(filteredAndPaginatedDemandes.length / perPage);
 
   return (
-    <div style={{ paddingLeft: "200px" }}>
+    <div style={{ paddingLeft: "100px" }}>
       <div
         style={{
           marginBottom: "20px",

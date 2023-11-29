@@ -12,17 +12,17 @@ const demandeRouter = require("./routes/demandeRoute");
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+app.use(express.json());
+// io.on("connection", (socket) => {
+//   console.log("A user connected");
 
-io.on("connection", (socket) => {
-  console.log("A user connected");
-
-  socket.on("demandeCreated", (data) => {
-    io.emit("newDemandeNotification", data);
-  });
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-  });
-});
+//   socket.on("demandeCreated", (data) => {
+//     io.emit("newDemandeNotification", data);
+//   });
+//   socket.on("disconnect", () => {
+//     console.log("User disconnected");
+//   });
+// });
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
 });

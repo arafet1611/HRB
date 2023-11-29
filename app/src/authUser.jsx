@@ -8,7 +8,7 @@ const AuthUser = ({ allowedRoles }) => {
   if (allowedRoles) {
     return <Outlet />;
   } else 
-    return <Navigate to="/register" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 ;
 

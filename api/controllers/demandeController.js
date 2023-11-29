@@ -34,10 +34,10 @@ const createDemande = async (req, res) => {
       msg,
     });
 
-    io.emit("demandeCreated", {
-      message: "New demande created",
-      data: demande,
-    });
+    // io.emit("demandeCreated", {
+    //   message: "New demande created",
+    //   data: demande,
+    // });
 
     res
       .status(201)
